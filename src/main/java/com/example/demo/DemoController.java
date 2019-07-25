@@ -16,23 +16,23 @@ public class DemoController {
         
 		
 		 System.out.println("starting");
-	        // try {
-	        //     Class.forName("com.mysql.jdbc.Driver");
-	        //     String username ="ben";
-	        //     String password = "password";
-	        //     Connection con = DriverManager.getConnection("jdbc:mysql://165.22.59.122:3306/TestingDB", username, password);
+	         try {
+	             Class.forName("com.mysql.jdbc.Driver");
+	             String username ="CitiAdmin";
+	             String password = "citihack2019";
+	             Connection con = DriverManager.getConnection("jdbc:mysql://citihack2019.cwop36kfff9j.ap-southeast-1.rds.amazonaws.com:3306/innodb", username, password);
 	 
-	        //     Statement stmt = con.createStatement();
-	        //     ResultSet rs = stmt.executeQuery("select * from firstTable");
-	        //     System.out.println("Pulled data");
+	             Statement stmt = con.createStatement();
+	             ResultSet rs = stmt.executeQuery("select * from test");
+	             System.out.println("Pulled data");
 	            
-	        //     while (rs.next()) {
-	        //         return rs.getString(1) + "  " + rs.getString(2) ;
-	        //     }
-	        //     con.close();
-	        // } catch (Exception e) {
-	        //     System.out.println(e);
-	        // }
+	             while (rs.next()) {
+	                 return "Read from database : " + rs.getString(1) + "  " + rs.getString(2) ;
+	             }
+	             con.close();
+	         } catch (Exception e) {
+	             System.out.println(e);
+	         }
 	        
 		
         return "Well Done!! Nice Try!! Good bye!";
