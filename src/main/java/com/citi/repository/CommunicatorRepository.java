@@ -10,14 +10,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.citi.entity.Communicator;
 
 @Repository
 public class CommunicatorRepository {
-//extends CrudRepository<Communicator, Integer>{
-//	Communicator findAllById(int eventID);
-	
-	
 	
 	public Map<String, String> getEventName(int eventID) {
 		Map<String, String> result = new HashMap<>();
@@ -107,6 +102,29 @@ public class CommunicatorRepository {
             while (rs.next()) {
             	result.put("Subject", rs.getString(2));
             	result.put("Content", rs.getString(3));
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		return result;
+	}
+	
+	public Map<String, String> insertNotificationSubscription(int eventID, String subject, String content) {
+		Map<String, String> result = new HashMap<>();
+		
+		try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String username ="CitiAdmin";
+            String password = "citihack2019";
+            Connection con = DriverManager.getConnection("jdbc:mysql://citihack2019.cwop36kfff9j.ap-southeast-1.rds.amazonaws.com:3306/innodb", username, password);
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("Insert INTO EventNotificationTemplate(EventID, Subject, Content) VALUES (" + eventID + "," + subject + "," + content ); 
+            while (rs.next()) {
+            	result.put("Name", rs.getString(1));
+            	result.put("Time", rs.getString(2));
+            	result.put("OrganiserID", rs.getString(3));
             }
             con.close();
         } catch (Exception e) {
